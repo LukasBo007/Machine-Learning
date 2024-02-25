@@ -1,0 +1,61 @@
+Laden des Datensatzes
+data_path = 'Ihr_Dateipfad_hier'
+data = pd.read_csv(data_path)
+
+Identifizierung der Einträge mit nicht-numerischen Werten in "BestSquatKg"
+non_numeric_entries = pd.to_numeric(data['BestSquatKg'], errors='coerce').isna()
+
+Ausgabe der fehlerhaften Einträge
+print(data[non_numeric_entries][['playerId', 'BestSquatKg']])
+
+Korrektur der fehlerhaften Einträge, indem der doppelte Punkt durch einen einzigen ersetzt wird
+data['BestSquatKg'] = data['BestSquatKg'].str.replace('..', '.', regex=False)
+
+Konvertierung der korrigierten Spalte in einen numerischen Typ
+data['BestSquatKg'] = pd.to_numeric(data['BestSquatKg'])
+
+Optional: Speichern der korrigierten Daten in eine neue CSV-Datei
+corrected_data_path = 'Ihr_neuer_Dateipfad_hier.csv'
+data.to_csv(corrected_data_path, index=False)
+
+print(f"Die korrigierten Daten wurden gespeichert unter: {corrected_data_path}")
+import pandas as pd
+
+Laden des Datensatzes
+data_path = 'Ihr_Dateipfad_hier'
+data = pd.read_csv(data_path)
+
+Identifizierung und Anzeige der Zeilen mit negativen Werten in "BestSquatKg"
+negative_entries = data[data['BestSquatKg'] < 0]
+print("Negative Einträge in 'BestSquatKg':")
+print(negative_entries)
+
+Entfernen der Zeilen mit negativen Werten in "BestSquatKg"
+data_cleaned = data[data['BestSquatKg'] >= 0]
+
+Optional: Speichern der bereinigten Daten in eine neue CSV-Datei
+cleaned_data_path = 'Ihr_bereinigter_Dateipfad_hier.csv'
+data_cleaned.to_csv(cleaned_data_path, index=False)
+
+print(f"Die bereinigten Daten wurden gespeichert unter: {cleaned_data_path}")
+import pandas as pd
+
+Laden des Datensatzes
+data_path = 'Ihr_Dateipfad_hier'
+data = pd.read_csv(data_path)
+
+Umwandlung negativer Werte in "BestSquatKg" in positive durch Anwendung des absoluten Wertes
+data['BestSquatKg'] = data['BestSquatKg'].abs()
+
+Optional: Anzeige der ersten paar Zeilen zur Überprüfung
+print(data.head())
+
+Optional: Speichern der modifizierten Daten in eine neue CSV-Datei
+modified_data_path = 'Ihr_modifizierter_Dateipfad_hier.csv'
+data.to_csv(modified_data_path, index=False)
+
+print(f"Die modifizierten Daten wurden gespeichert unter: {modified_data_path}")
+
+Überprüfung auf NaN Werte in 'BestSquatKg' nach der Konvertierung in numerische Werte
+nan_count_after_correction = pd.to_numeric(data['BestSquatKg'], errors='coerce').isna().sum()
+print(f"Anzahl der NaN Werte in 'BestSquatKg' nach der Korrektur: {nan_count_after_correction}")
